@@ -1,12 +1,12 @@
 import gql from "graphql-tag";
 import React, { Component } from "react";
 import { graphql } from "react-apollo";
-import Layout from "../layout";
 
-class Login extends Component {
+class Register extends Component {
   state = {
     email: "",
     password: "",
+    username: "",
   };
 
   onChange = (e) => {
@@ -15,19 +15,19 @@ class Login extends Component {
   };
 
   handleSubmit = async () => {
-    const { email, password } = this.state;
+    const { email, password, username } = this.state;
 
     const response = await this.props.mutate({
-      variables: { email, password },
+      variables: { email, password, username },
     });
 
     console.log(response);
   };
 
   render() {
-    const { email, password } = this.state;
+    const { email, password, username } = this.state;
     return (
-      <Layout>
+      <div className="App">
         <div>
           <input
             placeholder="email"
@@ -46,15 +46,30 @@ class Login extends Component {
             onChange={this.onChange}
           />
         </div>
+        <div>
+          <input
+            placeholder="username"
+            type="text"
+            name="username"
+            value={username}
+            onChange={this.onChange}
+          />
+        </div>
         <button onClick={this.handleSubmit}>submit</button>
-      </Layout>
+      </div>
     );
   }
 }
 
-const loginMutation = gql`
-  mutation LoginMutation($email: String!, $password: String!) {
-    login(email: $email, password: $password) {
+const registerMutation = gql`
+  mutation RegisterMutation(
+    $email: String!
+    $password: String!
+    $username: String!
+  ) {
+    register(
+      data: { email: $email, password: $password, username: $username }
+    ) {
       id
       username
       email
@@ -62,4 +77,4 @@ const loginMutation = gql`
   }
 `;
 
-export default graphql(loginMutation)(Login);
+export default graphql(registerMutation)(Register);

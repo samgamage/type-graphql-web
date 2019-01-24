@@ -1,7 +1,6 @@
+import gql from "graphql-tag";
 import React, { Component } from "react";
 import { Query } from "react-apollo";
-import gql from "graphql-tag";
-
 import Layout from "../layout";
 
 class Home extends Component {
@@ -10,7 +9,15 @@ class Home extends Component {
       <Query
         query={gql`
           {
-            hello
+            posts {
+              title
+              content
+              published
+              author {
+                username
+                email
+              }
+            }
           }
         `}
       >
@@ -20,7 +27,7 @@ class Home extends Component {
 
           return (
             <Layout>
-              <p>{data.hello}</p>
+              <p>{JSON.stringify(data.posts)}</p>
             </Layout>
           );
         }}
