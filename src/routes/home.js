@@ -55,6 +55,7 @@ const Home = () => (
                     <p>{post.title}</p>
                     <p>{post.description}</p>
                     <p>{post.content}</p>
+                    <p>{post.author.username}</p>
                     {loading && <p>Loading...</p>}
                     {error && (
                       <p>

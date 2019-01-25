@@ -5,11 +5,10 @@ export const postsQuery = gql`
     posts {
       id
       title
+      description
       content
-      published
       author {
         username
-        email
       }
     }
   }
