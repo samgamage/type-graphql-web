@@ -1,7 +1,7 @@
 import gql from "graphql-tag";
 import React, { Component } from "react";
 import { graphql } from "react-apollo";
-import Layout from "../layout";
+import Nav from "../ui/layout/Nav";
 
 class Login extends Component {
   state = {
@@ -27,7 +27,7 @@ class Login extends Component {
   render() {
     const { email, password } = this.state;
     return (
-      <Layout>
+      <Nav>
         <div>
           <input
             placeholder="email"
@@ -47,7 +47,7 @@ class Login extends Component {
           />
         </div>
         <button onClick={this.handleSubmit}>submit</button>
-      </Layout>
+      </Nav>
     );
   }
 }
@@ -55,9 +55,8 @@ class Login extends Component {
 const loginMutation = gql`
   mutation LoginMutation($email: String!, $password: String!) {
     login(email: $email, password: $password) {
-      id
-      username
-      email
+      ok
+      error
     }
   }
 `;

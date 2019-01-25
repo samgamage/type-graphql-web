@@ -1,7 +1,7 @@
 import gql from "graphql-tag";
 import React, { Component } from "react";
 import { Query } from "react-apollo";
-import Layout from "../layout";
+import Nav from "../ui/layout/Nav";
 
 class Home extends Component {
   render() {
@@ -26,9 +26,9 @@ class Home extends Component {
           if (error) return <p>Error: {`${error.message}`}</p>;
 
           return (
-            <Layout>
+            <Nav>
               <p>{JSON.stringify(data.posts)}</p>
-            </Layout>
+            </Nav>
           );
         }}
       </Query>

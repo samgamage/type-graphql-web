@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-export default ({ children }) => {
+const Nav = ({ children }) => {
   return (
     <div>
       <ul>
@@ -14,8 +14,13 @@ export default ({ children }) => {
         <li>
           <Link to="/register">Register</Link>
         </li>
+        <li>
+          <Link to="/posts/create">Create Post</Link>
+        </li>
       </ul>
       {children}
     </div>
   );
 };
+
+export default Nav;
