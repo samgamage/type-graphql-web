@@ -17,3 +17,18 @@ export const homeQuery = gql`
     }
   }
 `;
+
+export const getPostQuery = gql`
+  query GetPostQuery($id: Float!) {
+    getPost(id: $id) {
+      id
+      title
+      description
+      content
+      author {
+        username
+        id
+      }
+    }
+  }
+`;

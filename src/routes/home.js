@@ -1,5 +1,6 @@
 import React from "react";
 import { Mutation, Query } from "react-apollo";
+import { Link } from "react-router-dom";
 import { deletePostMutation } from "../graphql/mutations";
 import { homeQuery } from "../graphql/querys";
 import Nav from "../ui/layout/Nav";
@@ -16,7 +17,7 @@ const Home = () => (
       if (error)
         return (
           <Nav>
-            <p>Error: {`${error.message}`}</p>
+            <p>Error: {`Name: ${error.name}, Message: ${error.message}.`}</p>
           </Nav>
         );
 
@@ -42,10 +43,9 @@ const Home = () => (
               >
                 {(deletePost, { loading, error }) => (
                   <div>
-                    <p>{post.title}</p>
-                    <p>{post.description}</p>
-                    <p>{post.content}</p>
-                    <p>{post.author.username}</p>
+                    <p>
+                      <Link to={`/posts/${post.id}`}>{post.title}</Link>
+                    </p>
                     {data.me.id === post.author.id && (
                       <button
                         onClick={(e) => {

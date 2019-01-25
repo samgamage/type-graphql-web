@@ -43,8 +43,6 @@ class Login extends Component {
                 onClick={(e) => {
                   e.preventDefault();
                   login({ variables: { email, password } });
-
-                  this.props.history.push("/");
                 }}
               >
                 submit
