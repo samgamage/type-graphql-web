@@ -1,6 +1,6 @@
-import gql from "graphql-tag";
 import React, { Component } from "react";
-import { graphql } from "react-apollo";
+import { Mutation } from "react-apollo";
+import { loginMutation } from "../graphql/mutations";
 import Nav from "../ui/layout/Nav";
 
 class Login extends Component {
@@ -14,50 +14,45 @@ class Login extends Component {
     this.setState({ [name]: value });
   };
 
-  handleSubmit = async () => {
-    const { email, password } = this.state;
-
-    const response = await this.props.mutate({
-      variables: { email, password },
-    });
-
-    console.log(response);
-  };
-
   render() {
     const { email, password } = this.state;
     return (
       <Nav>
-        <div>
-          <input
-            placeholder="email"
-            type="email"
-            name="email"
-            value={email}
-            onChange={this.onChange}
-          />
-        </div>
-        <div>
-          <input
-            placeholder="password"
-            type="password"
-            name="password"
-            value={password}
-            onChange={this.onChange}
-          />
-        </div>
-        <button onClick={this.handleSubmit}>submit</button>
+        <Mutation mutation={loginMutation}>
+          {(login, { data }) => (
+            <div>
+              <div>
+                <input
+                  placeholder="email"
+                  type="email"
+                  name="email"
+                  value={email}
+                  onChange={this.onChange}
+                />
+              </div>
+              <div>
+                <input
+                  placeholder="password"
+                  type="password"
+                  name="password"
+                  value={password}
+                  onChange={this.onChange}
+                />
+              </div>
+              <button
+                onClick={(e) => {
+                  e.preventDefault();
+                  login({ variables: { email, password } });
+                }}
+              >
+                submit
+              </button>
+            </div>
+          )}
+        </Mutation>
       </Nav>
     );
   }
 }
 
-const loginMutation = gql`
-  mutation LoginMutation($email: String!, $password: String!) {
-    login(email: $email, password: $password) {
-      id
-    }
-  }
-`;
-
-export default graphql(loginMutation)(Login);
+export default Login;

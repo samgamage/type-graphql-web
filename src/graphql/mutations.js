@@ -7,3 +7,10 @@ export const deletePostMutation = gql`
     }
   }
 `;
+export const loginMutation = gql`
+  mutation LoginMutation($email: String!, $password: String!) {
+    login(email: $email, password: $password) {
+      id
+    }
+  }
+`;
