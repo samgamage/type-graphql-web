@@ -1,26 +1,29 @@
+import AppBar from "@material-ui/core/AppBar";
+import { withStyles } from "@material-ui/core/styles";
+import Toolbar from "@material-ui/core/Toolbar";
+import Typography from "@material-ui/core/Typography";
 import React from "react";
 import { Link } from "react-router-dom";
 
-const Nav = ({ children }) => {
+const styles = {
+  root: {
+    flexGrow: 1,
+  },
+};
+
+const Nav = ({ children, classes }) => {
   return (
-    <div>
-      <ul>
-        <li>
-          <Link to="/">Home</Link>
-        </li>
-        <li>
-          <Link to="/login">Login</Link>
-        </li>
-        <li>
-          <Link to="/register">Register</Link>
-        </li>
-        <li>
-          <Link to="/posts/create">Create Post</Link>
-        </li>
-      </ul>
+    <div className={classes.root}>
+      <AppBar position="static" color="default">
+        <Toolbar>
+          <Typography variant="h6" color="inherit">
+            <Link to="/">Home</Link>
+          </Typography>
+        </Toolbar>
+      </AppBar>
       {children}
     </div>
   );
 };
 
-export default Nav;
+export default withStyles(styles)(Nav);
