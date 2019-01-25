@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { Mutation } from "react-apollo";
 import { createPostMutation } from "../graphql/mutations";
-import { postsQuery } from "../graphql/querys";
+import { homeQuery } from "../graphql/querys";
 import Nav from "../ui/layout/Nav";
 
 class CreatePost extends Component {
@@ -30,9 +30,9 @@ class CreatePost extends Component {
               },
             }
           ) => {
-            const { posts } = cache.readQuery({ query: postsQuery });
+            const { posts } = cache.readQuery({ query: homeQuery });
             cache.writeQuery({
-              query: postsQuery,
+              query: homeQuery,
               data: {
                 posts: posts.concat([post]),
               },

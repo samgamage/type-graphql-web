@@ -19,7 +19,7 @@ class Login extends Component {
     return (
       <Nav>
         <Mutation mutation={loginMutation}>
-          {(login, { data }) => (
+          {(login) => (
             <div>
               <div>
                 <input
@@ -43,6 +43,8 @@ class Login extends Component {
                 onClick={(e) => {
                   e.preventDefault();
                   login({ variables: { email, password } });
+
+                  this.props.history.push("/");
                 }}
               >
                 submit

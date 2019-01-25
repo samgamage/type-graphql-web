@@ -1,6 +1,6 @@
 import gql from "graphql-tag";
 
-export const postsQuery = gql`
+export const homeQuery = gql`
   {
     posts {
       id
@@ -8,8 +8,12 @@ export const postsQuery = gql`
       description
       content
       author {
+        id
         username
       }
+    }
+    me {
+      id
     }
   }
 `;
