@@ -55,8 +55,7 @@ class Login extends Component {
 const loginMutation = gql`
   mutation LoginMutation($email: String!, $password: String!) {
     login(email: $email, password: $password) {
-      ok
-      error
+      id
     }
   }
 `;
