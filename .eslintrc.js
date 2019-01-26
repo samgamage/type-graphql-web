@@ -8,10 +8,6 @@ module.exports = {
     "no-undef": 0,
     "arrow-parens": 0,
     quotes: 0,
-    // 'arrow-parens': 0,
-    // 'arrow-body-style': 0,
-    // 'import/extensions': 'off',
-    // 'import/no-unresolved': 'off',
   },
   globals: {
     document: 1,
