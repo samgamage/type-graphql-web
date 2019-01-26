@@ -40,6 +40,7 @@ class Login extends Component {
                 />
               </div>
               <button
+                type="submit"
                 onClick={(e) => {
                   e.preventDefault();
                   login({ variables: { email, password } });

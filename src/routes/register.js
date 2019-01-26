@@ -64,6 +64,7 @@ class Register extends Component {
                 />
               </div>
               <button
+                type="submit"
                 onClick={(e) => {
                   e.preventDefault();
                   register({ variables: { email, password, username } });

@@ -7,6 +7,4 @@ const Container = styled.div`
   width: 100%;
 `;
 
-export default ({ children }) => {
-  return <Container>{children}</Container>;
-};
+export default ({ children }) => <Container>{children}</Container>;

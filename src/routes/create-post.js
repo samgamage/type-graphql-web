@@ -50,6 +50,7 @@ class CreatePost extends Component {
                 />
               </div>
               <button
+                type="submit"
                 onClick={(e) => {
                   e.preventDefault();
                   createPost({ variables: { title, description, content } });

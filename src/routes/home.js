@@ -33,23 +33,28 @@ const styles = {
 const Home = ({ classes }) => (
   <Query query={postsQuery}>
     {({ loading, error, data }) => {
-      if (loading)
+      if (loading) {
         return (
           <Nav>
             <p>Loading...</p>
           </Nav>
         );
-      if (error)
+      }
+      if (error) {
         return (
           <Nav>
-            <p>Error: {`Name: ${error.name}, Message: ${error.message}.`}</p>
+            <p>
+              Error:
+              {`Name: ${error.name}, Message: ${error.message}.`}
+            </p>
           </Nav>
         );
+      }
 
       return (
         <Nav>
-          {data &&
-            data.posts.map((post) => (
+          {data
+            && data.posts.map(post => (
               <Card className={classes.card} key={post.id}>
                 <CardActionArea>
                   <Link to={`/posts/${post.id}`}>
@@ -63,11 +68,7 @@ const Home = ({ classes }) => (
                         {post.title}
                       </Typography>
                       <Typography component="p">{post.description}</Typography>
-                      <Avatar
-                        alt={post.author.username}
-                        src=""
-                        className={classes.avatar}
-                      />
+                      <Avatar alt={post.author.username} src="" className={classes.avatar} />
                       <Typography component="p" className={classes.username}>
                         {post.author.username}
                       </Typography>

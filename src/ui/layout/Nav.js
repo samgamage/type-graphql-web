@@ -24,41 +24,35 @@ const styles = (theme) => ({
   },
 });
 
-const Nav = ({ children, classes }) => {
-  return (
-    <div className={classes.root}>
-      <AppBar
-        position="static"
-        color="default"
-        style={{ display: "flex", alignItems: "center" }}
-      >
-        <Toolbar style={{ width: "60%" }}>
-          <Typography variant="h6" color="inherit">
-            <Link to="/" style={{ textDecoration: "none" }}>
-              Home
-            </Link>
-          </Typography>
-          <div className={classes.grow} />
-          <div className={classes.sectionDesktop}>
-            <IconButton color="inherit">
-              <Badge badgeContent={4} color="secondary">
-                <MailIcon />
-              </Badge>
-            </IconButton>
-            <IconButton color="inherit">
-              <Badge badgeContent={17} color="secondary">
-                <NotificationsIcon />
-              </Badge>
-            </IconButton>
-            <IconButton color="inherit">
-              <AccountCircle />
-            </IconButton>
-          </div>
-        </Toolbar>
-      </AppBar>
-      {children}
-    </div>
-  );
-};
+const Nav = ({ children, classes }) => (
+  <div className={classes.root}>
+    <AppBar position="static" color="default" style={{ display: "flex", alignItems: "center" }}>
+      <Toolbar style={{ width: "60%" }}>
+        <Typography variant="h6" color="inherit">
+          <Link to="/" style={{ textDecoration: "none" }}>
+            Home
+          </Link>
+        </Typography>
+        <div className={classes.grow} />
+        <div className={classes.sectionDesktop}>
+          <IconButton color="inherit">
+            <Badge badgeContent={4} color="secondary">
+              <MailIcon />
+            </Badge>
+          </IconButton>
+          <IconButton color="inherit">
+            <Badge badgeContent={17} color="secondary">
+              <NotificationsIcon />
+            </Badge>
+          </IconButton>
+          <IconButton color="inherit">
+            <AccountCircle />
+          </IconButton>
+        </div>
+      </Toolbar>
+    </AppBar>
+    {children}
+  </div>
+);
 
 export default withStyles(styles)(Nav);

@@ -30,7 +30,7 @@ export default ({
             });
           }}
         >
-          {(deletePost, { loading }) => {
+          {(deletePost) => {
             if (loading) {
               return <div>Loading</div>;
             }
