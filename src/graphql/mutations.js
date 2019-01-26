@@ -31,6 +31,7 @@ export const createPostMutation = gql`
         description
         content
         author {
+          id
           username
         }
       }

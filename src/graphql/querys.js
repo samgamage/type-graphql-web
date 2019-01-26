@@ -8,8 +8,12 @@ export const postsQuery = gql`
       description
       content
       author {
+        id
         username
       }
+    }
+    me {
+      id
     }
   }
 `;
@@ -22,8 +26,12 @@ export const getPostQuery = gql`
       description
       content
       author {
+        id
         username
       }
+    }
+    me {
+      id
     }
   }
 `;
