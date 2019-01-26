@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import { Mutation } from "react-apollo";
 import { createPostMutation } from "../graphql/mutations";
-import { homeQuery } from "../graphql/querys";
 import Nav from "../ui/layout/Nav";
 
 class CreatePost extends Component {
@@ -20,28 +19,7 @@ class CreatePost extends Component {
     const { title, description, content } = this.state;
     return (
       <Nav>
-        <Mutation
-          mutation={createPostMutation}
-          update={(
-            cache,
-            {
-              data: {
-                createPost: { post },
-              },
-            }
-          ) => {
-            const { posts } = cache.readQuery({ query: homeQuery });
-            cache.writeQuery({
-              query: homeQuery,
-              data: {
-                posts: posts.concat([post]),
-              },
-            });
-
-            // (todo): display notification that the post was created
-            this.props.history.push("/");
-          }}
-        >
+        <Mutation mutation={createPostMutation}>
           {(createPost) => (
             <div>
               <div>
@@ -75,6 +53,7 @@ class CreatePost extends Component {
                 onClick={(e) => {
                   e.preventDefault();
                   createPost({ variables: { title, description, content } });
+                  this.setState({ title: "", description: "", content: "" });
                 }}
               >
                 Create Post
