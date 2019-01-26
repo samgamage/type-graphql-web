@@ -1,4 +1,4 @@
-import { Avatar } from "@material-ui/core";
+import { Avatar, CardActions, CircularProgress } from "@material-ui/core";
 import Card from "@material-ui/core/Card";
 import CardActionArea from "@material-ui/core/CardActionArea";
 import CardContent from "@material-ui/core/CardContent";
@@ -9,6 +9,7 @@ import React from "react";
 import { Query } from "react-apollo";
 import { Link } from "react-router-dom";
 import { postsQuery } from "../graphql/querys";
+import Container from "../ui/layout/Container";
 import Nav from "../ui/layout/Nav";
 
 const styles = {
@@ -36,7 +37,9 @@ const Home = ({ classes }) => (
       if (loading) {
         return (
           <Nav>
-            <p>Loading...</p>
+            <Container>
+              <CircularProgress color="secondary" />
+            </Container>
           </Nav>
         );
       }
@@ -53,30 +56,36 @@ const Home = ({ classes }) => (
 
       return (
         <Nav>
-          {data
-            && data.posts.map(post => (
+          <Container width="62%">
+            {data.posts.map((post) => (
               <Card className={classes.card} key={post.id}>
                 <CardActionArea>
                   <Link to={`/posts/${post.id}`}>
                     <CardMedia
                       className={classes.media}
-                      image="/static/images/cards/contemplative-reptile.jpg"
-                      title="Contemplative Reptile"
+                      image="https://picsum.photos/400/500/?random"
                     />
                     <CardContent>
                       <Typography gutterBottom variant="h5" component="h2">
                         {post.title}
                       </Typography>
                       <Typography component="p">{post.description}</Typography>
-                      <Avatar alt={post.author.username} src="" className={classes.avatar} />
-                      <Typography component="p" className={classes.username}>
-                        {post.author.username}
-                      </Typography>
                     </CardContent>
                   </Link>
                 </CardActionArea>
+                <CardActions>
+                  <Avatar
+                    alt={post.author.username}
+                    src="https://picsum.photos/400/500/?image=2"
+                    className={classes.avatar}
+                  />
+                  <Typography component="p" className={classes.username}>
+                    {post.author.username}
+                  </Typography>
+                </CardActions>
               </Card>
             ))}
+          </Container>
         </Nav>
       );
     }}
