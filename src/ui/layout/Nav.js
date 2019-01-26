@@ -4,7 +4,6 @@ import { withStyles } from "@material-ui/core/styles";
 import Toolbar from "@material-ui/core/Toolbar";
 import Typography from "@material-ui/core/Typography";
 import AccountCircle from "@material-ui/icons/AccountCircle";
-import MailIcon from "@material-ui/icons/Mail";
 import NotificationsIcon from "@material-ui/icons/Notifications";
 import React from "react";
 import { Link } from "react-router-dom";
@@ -35,11 +34,6 @@ const Nav = ({ children, classes }) => (
         </Typography>
         <div className={classes.grow} />
         <div className={classes.sectionDesktop}>
-          <IconButton color="inherit">
-            <Badge badgeContent={4} color="secondary">
-              <MailIcon />
-            </Badge>
-          </IconButton>
           <IconButton color="inherit">
             <Badge badgeContent={17} color="secondary">
               <NotificationsIcon />
