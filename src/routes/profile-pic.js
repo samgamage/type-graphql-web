@@ -13,10 +13,7 @@ const ProfilePic = () => (
   <Mutation mutation={addProfilePictureMutation}>
     {(addProfilePicture) => (
       <Dropzone
-        onDrop={([file]) => {
-          console.log(file);
-          addProfilePicture({ variables: { file } });
-        }}
+        onDrop={([file]) => addProfilePicture({ variables: { file } })}
         accept="image/jpeg, image/png"
         multiple={false}
       >

@@ -1,6 +1,6 @@
 import { InMemoryCache } from "apollo-cache-inmemory";
 import { ApolloClient } from "apollo-client";
-import { HttpLink } from "apollo-link-http";
+import { createUploadLink } from "apollo-upload-client";
 import "normalize.css";
 import React from "react";
 import { ApolloProvider } from "react-apollo";
@@ -8,7 +8,7 @@ import ReactDOM from "react-dom";
 import Route from "./routes";
 import * as serviceWorker from "./serviceWorker";
 
-const link = new HttpLink({
+const link = createUploadLink({
   uri: "http://localhost:4000/graphql",
   credentials: "include",
 });
