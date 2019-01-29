@@ -1,7 +1,7 @@
 import gql from "graphql-tag";
 
 export const postsQuery = gql`
-  {
+  query GetPostsQuery {
     posts {
       id
       title
@@ -30,6 +30,14 @@ export const getPostQuery = gql`
         username
       }
     }
+    me {
+      id
+    }
+  }
+`;
+
+export const meQuery = gql`
+  {
     me {
       id
     }
