@@ -70,10 +70,7 @@ export default ({
                     {getPost.description}
                   </Typography>
                   <CardActions>
-                    <Avatar
-                      alt={getPost.author.username}
-                      src="https://picsum.photos/400/500/?image=2"
-                    />
+                    <Avatar alt={getPost.author.username} src={getPost.author.profilePictureUrl} />
                     <Typography variant="subtitle1" gutterBottom>
                       {getPost.author.username}
                     </Typography>

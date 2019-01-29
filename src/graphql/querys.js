@@ -10,6 +10,7 @@ export const postsQuery = gql`
       author {
         id
         username
+        profilePictureUrl
       }
     }
     me {
@@ -28,6 +29,7 @@ export const getPostQuery = gql`
       author {
         id
         username
+        profilePictureUrl
       }
     }
     me {
@@ -40,6 +42,7 @@ export const meQuery = gql`
   {
     me {
       id
+      profilePictureUrl
     }
   }
 `;

@@ -76,7 +76,7 @@ const Home = ({ classes }) => (
                 <CardActions>
                   <Avatar
                     alt={post.author.username}
-                    src="https://picsum.photos/400/500/?image=2"
+                    src={post.author.profilePictureUrl}
                     className={classes.avatar}
                   />
                   <Typography component="p" className={classes.username}>
