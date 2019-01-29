@@ -27,11 +27,12 @@ export default ({
           <Mutation
             mutation={deletePostMutation}
             update={(cache) => {
-              const { posts } = cache.readQuery({ query: postsQuery });
-              const newPosts = posts.filter((queryPost) => id !== queryPost.id);
+              const data = cache.readQuery({ query: postsQuery });
+              const newPosts = data.posts.filter((queryPost) => id !== queryPost.id);
               cache.writeQuery({
                 query: postsQuery,
                 data: {
+                  ...data,
                   posts: newPosts,
                 },
               });

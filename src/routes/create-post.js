@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { Mutation } from "react-apollo";
 import { createPostMutation } from "../graphql/mutations";
+import { postsQuery } from "../graphql/querys";
 import Nav from "../ui/layout/Nav";
 
 class CreatePost extends Component {
@@ -53,7 +54,10 @@ class CreatePost extends Component {
                 type="submit"
                 onClick={(e) => {
                   e.preventDefault();
-                  createPost({ variables: { title, description, content } });
+                  createPost({
+                    variables: { title, description, content },
+                    refetchQueries: [{ query: postsQuery }],
+                  });
                   this.setState({ title: "", description: "", content: "" });
                 }}
               >
