@@ -3,7 +3,7 @@ import React from "react";
 import { Mutation, Query } from "react-apollo";
 import { Link } from "react-router-dom";
 import { deletePostMutation } from "../graphql/mutations";
-import { getPostQuery, postsQuery } from "../graphql/querys";
+import { findUserQuery, getPostQuery, postsQuery } from "../graphql/querys";
 import Container from "../ui/layout/Container";
 import Nav from "../ui/layout/Nav";
 
@@ -28,12 +28,13 @@ export default ({
           <Mutation
             mutation={deletePostMutation}
             update={(cache) => {
-              const data = cache.readQuery({ query: postsQuery });
-              const newPosts = data.posts.filter((queryPost) => id !== queryPost.id);
+              const postsData = cache.readQuery({ query: postsQuery });
+              const newPosts = postsData.posts.filter((post) => id !== post.id);
+
               cache.writeQuery({
                 query: postsQuery,
                 data: {
-                  ...data,
+                  ...postsData,
                   posts: newPosts,
                 },
               });
@@ -57,6 +58,9 @@ export default ({
                         e.preventDefault();
                         deletePost({
                           variables: { postId: parseFloat(id, 10) },
+                          refetchQueries: [
+                            { query: findUserQuery, variables: { id: parseFloat(me.id) } },
+                          ],
                         });
                         history.push("/");
                       }}
