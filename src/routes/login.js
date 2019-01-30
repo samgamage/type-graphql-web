@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { Mutation } from "react-apollo";
 import { loginMutation } from "../graphql/mutations";
+import Nav from "../ui/layout/Nav";
 
 class Login extends Component {
   state = {
@@ -16,39 +17,41 @@ class Login extends Component {
   render() {
     const { email, password } = this.state;
     return (
-      <Mutation mutation={loginMutation}>
-        {(login) => (
-          <div>
+      <Nav>
+        <Mutation mutation={loginMutation}>
+          {(login) => (
             <div>
-              <input
-                placeholder="email"
-                type="email"
-                name="email"
-                value={email}
-                onChange={this.onChange}
-              />
+              <div>
+                <input
+                  placeholder="email"
+                  type="email"
+                  name="email"
+                  value={email}
+                  onChange={this.onChange}
+                />
+              </div>
+              <div>
+                <input
+                  placeholder="password"
+                  type="password"
+                  name="password"
+                  value={password}
+                  onChange={this.onChange}
+                />
+              </div>
+              <button
+                type="submit"
+                onClick={(e) => {
+                  e.preventDefault();
+                  login({ variables: { email, password } });
+                }}
+              >
+                submit
+              </button>
             </div>
-            <div>
-              <input
-                placeholder="password"
-                type="password"
-                name="password"
-                value={password}
-                onChange={this.onChange}
-              />
-            </div>
-            <button
-              type="submit"
-              onClick={(e) => {
-                e.preventDefault();
-                login({ variables: { email, password } });
-              }}
-            >
-              submit
-            </button>
-          </div>
-        )}
-      </Mutation>
+          )}
+        </Mutation>
+      </Nav>
     );
   }
 }

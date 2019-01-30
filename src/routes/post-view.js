@@ -1,6 +1,7 @@
 import { Avatar, Button, CardActions, CircularProgress, Typography } from "@material-ui/core";
 import React from "react";
 import { Mutation, Query } from "react-apollo";
+import { Link } from "react-router-dom";
 import { deletePostMutation } from "../graphql/mutations";
 import { getPostQuery, postsQuery } from "../graphql/querys";
 import Container from "../ui/layout/Container";
@@ -69,12 +70,17 @@ export default ({
                   <Typography variant="subtitle1" gutterBottom>
                     {getPost.description}
                   </Typography>
-                  <CardActions>
-                    <Avatar alt={getPost.author.username} src={getPost.author.profilePictureUrl} />
-                    <Typography variant="subtitle1" gutterBottom>
-                      {getPost.author.username}
-                    </Typography>
-                  </CardActions>
+                  <Link to={`/users/${getPost.author.id}`}>
+                    <CardActions>
+                      <Avatar
+                        alt={getPost.author.username}
+                        src={getPost.author.profilePictureUrl}
+                      />
+                      <Typography variant="subtitle1" gutterBottom>
+                        {getPost.author.username}
+                      </Typography>
+                    </CardActions>
+                  </Link>
                   <Typography variant="body1" gutterBottom>
                     {getPost.content}
                   </Typography>

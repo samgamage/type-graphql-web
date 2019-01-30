@@ -1,7 +1,7 @@
 import React, { Component } from "react";
-import { Mutation } from "react-apollo";
+import { Mutation, Query } from "react-apollo";
 import { createPostMutation } from "../graphql/mutations";
-import { postsQuery } from "../graphql/querys";
+import { findUserQuery, meQuery, postsQuery } from "../graphql/querys";
 import Nav from "../ui/layout/Nav";
 
 class CreatePost extends Component {
@@ -50,19 +50,29 @@ class CreatePost extends Component {
                   onChange={this.onChange}
                 />
               </div>
-              <button
-                type="submit"
-                onClick={(e) => {
-                  e.preventDefault();
-                  createPost({
-                    variables: { title, description, content },
-                    refetchQueries: [{ query: postsQuery }],
-                  });
-                  this.setState({ title: "", description: "", content: "" });
+              <Query query={meQuery}>
+                {({ data: { me }, loading }) => {
+                  if (loading) return null;
+                  return (
+                    <button
+                      type="submit"
+                      onClick={(e) => {
+                        e.preventDefault();
+                        createPost({
+                          variables: { title, description, content },
+                          refetchQueries: [
+                            { query: postsQuery },
+                            { query: findUserQuery, variables: { id: parseFloat(me.id) } },
+                          ],
+                        });
+                        this.setState({ title: "", description: "", content: "" });
+                      }}
+                    >
+                      Create Post
+                    </button>
+                  );
                 }}
-              >
-                Create Post
-              </button>
+              </Query>
             </div>
           )}
         </Mutation>

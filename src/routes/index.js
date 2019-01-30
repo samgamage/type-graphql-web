@@ -5,6 +5,7 @@ import Home from "./home";
 import Login from "./login";
 import PostView from "./post-view";
 import ProfilePic from "./profile-pic";
+import ProfileView from "./profile-view";
 import Register from "./register";
 
 export default () => (
@@ -15,6 +16,7 @@ export default () => (
       <Route path="/register" exact component={Register} />
       <Route path="/posts/create" exact component={CreatePost} />
       <Route path="/posts/:id?" exact component={PostView} />
+      <Route path="/users/:id?" exact component={ProfileView} />
       <Route path="/profile-pic" exact component={ProfilePic} />
     </Switch>
   </BrowserRouter>

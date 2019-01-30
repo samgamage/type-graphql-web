@@ -1,6 +1,5 @@
-import { Avatar, Badge, CircularProgress, IconButton } from "@material-ui/core";
+import { Avatar, Button, IconButton, withStyles } from "@material-ui/core";
 import AppBar from "@material-ui/core/AppBar";
-import { withStyles } from "@material-ui/core/styles";
 import Toolbar from "@material-ui/core/Toolbar";
 import Typography from "@material-ui/core/Typography";
 import NotificationsIcon from "@material-ui/icons/Notifications";
@@ -26,19 +25,18 @@ const styles = (theme) => ({
   toolbar: {
     padding: 0,
   },
+  button: {
+    margin: "0 0.5rem 0 0.5rem",
+  },
 });
 
 const Nav = ({ children, classes }) => (
   <div className={classes.root}>
-    <AppBar position="static" color="default">
+    <AppBar position="static" color="inherit">
       <Query query={meQuery}>
-        {({ data, error, loading }) => {
+        {({ data: { me }, error, loading }) => {
           if (loading) {
-            return (
-              <Container>
-                <CircularProgress color="secondary" />
-              </Container>
-            );
+            return <Toolbar className={classes.toolbar} />;
           }
           if (error) {
             return (
@@ -57,16 +55,21 @@ const Nav = ({ children, classes }) => (
                   </Link>
                 </Typography>
                 <div className={classes.grow} />
-                <div className={classes.sectionDesktop}>
+                {me && (
+                  <Link to="/posts/create">
+                    <Button variant="contained" className={classes.button}>
+                      Create Post
+                    </Button>
+                  </Link>
+                )}
+                <IconButton color="inherit">
+                  <NotificationsIcon />
+                </IconButton>
+                {me && (
                   <IconButton color="inherit">
-                    <Badge badgeContent={17} color="secondary">
-                      <NotificationsIcon />
-                    </Badge>
+                    <Avatar src={me.profilePictureUrl} />
                   </IconButton>
-                  <IconButton color="inherit">
-                    <Avatar src={data.me.profilePictureUrl} />
-                  </IconButton>
-                </div>
+                )}
               </Toolbar>
             </Container>
           );

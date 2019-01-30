@@ -73,16 +73,18 @@ const Home = ({ classes }) => (
                     </CardContent>
                   </Link>
                 </CardActionArea>
-                <CardActions>
-                  <Avatar
-                    alt={post.author.username}
-                    src={post.author.profilePictureUrl}
-                    className={classes.avatar}
-                  />
-                  <Typography component="p" className={classes.username}>
-                    {post.author.username}
-                  </Typography>
-                </CardActions>
+                <Link to={`/users/${post.author.id}`}>
+                  <CardActions>
+                    <Avatar
+                      alt={post.author.username}
+                      src={post.author.profilePictureUrl}
+                      className={classes.avatar}
+                    />
+                    <Typography component="p" className={classes.username}>
+                      {post.author.username}
+                    </Typography>
+                  </CardActions>
+                </Link>
               </Card>
             ))}
           </Container>
