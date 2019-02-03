@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { Mutation } from "react-apollo";
+import { Link } from "react-router-dom";
 import { loginMutation } from "../graphql/mutations";
 import Nav from "../ui/layout/Nav";
 
@@ -41,13 +42,19 @@ class Login extends Component {
               </div>
               <button
                 type="submit"
-                onClick={(e) => {
+                onClick={async (e) => {
                   e.preventDefault();
-                  login({ variables: { email, password } });
+                  await login({ variables: { email, password } }).then(() => {
+                    this.props.history.push("/");
+                  });
                 }}
               >
                 submit
               </button>
+              <div>
+                {/* eslint-disable-next-line */}
+                <Link to="/register">Don't have an account? Sign up.</Link>
+              </div>
             </div>
           )}
         </Mutation>

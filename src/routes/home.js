@@ -31,7 +31,7 @@ const styles = {
   },
 };
 
-const Home = ({ classes }) => (
+const Home = ({ classes, history }) => (
   <Query query={postsQuery}>
     {({ loading, error, data }) => {
       if (loading) {
@@ -43,15 +43,9 @@ const Home = ({ classes }) => (
           </Nav>
         );
       }
-      if (error) {
-        return (
-          <Nav>
-            <p>
-              Error:
-              {`Name: ${error.name}, Message: ${error.message}.`}
-            </p>
-          </Nav>
-        );
+      if (error && error.graphQLErrors[0].message.includes("Not authenticated")) {
+        history.push("/login");
+        return null;
       }
 
       return (

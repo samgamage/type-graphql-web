@@ -15,14 +15,8 @@ export const loginMutation = gql`
   }
 `;
 export const createPostMutation = gql`
-  mutation CreatePostMutation(
-    $title: String!
-    $description: String!
-    $content: String!
-  ) {
-    createPost(
-      data: { title: $title, description: $description, content: $content }
-    ) {
+  mutation CreatePostMutation($title: String!, $description: String!, $content: String!) {
+    createPost(data: { title: $title, description: $description, content: $content }) {
       ok
       error
       post {
@@ -39,16 +33,25 @@ export const createPostMutation = gql`
   }
 `;
 export const registerMutation = gql`
-  mutation RegisterMutation(
-    $email: String!
-    $password: String!
-    $username: String!
-  ) {
-    register(
-      data: { email: $email, password: $password, username: $username }
-    ) {
+  mutation RegisterMutation($email: String!, $password: String!, $username: String!) {
+    register(data: { email: $email, password: $password, username: $username }) {
       ok
       error
     }
+  }
+`;
+export const addProfilePictureMutation = gql`
+  mutation AddProfilePicture($file: Upload!) {
+    addProfilePicture(file: $file)
+  }
+`;
+export const confirmUserMutation = gql`
+  mutation ConfirmUser($token: String!) {
+    confirmUser(token: $token)
+  }
+`;
+export const logoutMutation = gql`
+  mutation LogoutMutation {
+    logout
   }
 `;

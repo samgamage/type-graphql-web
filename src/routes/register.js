@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { Mutation } from "react-apollo";
+import { Link } from "react-router-dom";
 import { registerMutation } from "../graphql/mutations";
 import Nav from "../ui/layout/Nav";
 
@@ -68,15 +69,14 @@ class Register extends Component {
                 onClick={(e) => {
                   e.preventDefault();
                   register({ variables: { email, password, username } });
-
-                  // const { ok } = data.register;
-                  // if (ok) {
-                  //   this.props.history.push("/");
-                  // }
                 }}
               >
                 submit
               </button>
+              <div>
+                {/* eslint-disable-next-line */}
+                <Link to="/login">Already have an account? Log in.</Link>
+              </div>
             </div>
           )}
         </Mutation>

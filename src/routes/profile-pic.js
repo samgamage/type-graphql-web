@@ -1,13 +1,7 @@
-import gql from "graphql-tag";
 import React from "react";
 import { Mutation } from "react-apollo";
 import Dropzone from "react-dropzone";
-
-const addProfilePictureMutation = gql`
-  mutation AddProfilePicture($file: Upload!) {
-    addProfilePicture(file: $file)
-  }
-`;
+import { addProfilePictureMutation } from "../graphql/mutations";
 
 const ProfilePic = () => (
   <Mutation mutation={addProfilePictureMutation}>
