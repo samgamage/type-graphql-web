@@ -1,7 +1,7 @@
 import React from "react";
 import { Mutation } from "react-apollo";
 import Dropzone from "react-dropzone";
-import { addProfilePictureMutation } from "../graphql/mutations";
+import { addProfilePictureMutation } from "../graphql/user/mutations/addProfilePictureMutation";
 
 const ProfilePic = () => (
   <Mutation mutation={addProfilePictureMutation}>

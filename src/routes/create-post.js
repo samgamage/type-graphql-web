@@ -1,7 +1,9 @@
 import React, { Component } from "react";
 import { Mutation, Query } from "react-apollo";
-import { createPostMutation } from "../graphql/mutations";
-import { findUserQuery, meQuery, postsQuery } from "../graphql/querys";
+import { createPostMutation } from "../graphql/post/mutations/createPostMutation";
+import { getPostsQuery } from "../graphql/post/queries/getPostsQuery";
+import { findUserQuery } from "../graphql/user/queries/findUserQuery";
+import { meQuery } from "../graphql/user/queries/meQuery";
 import Nav from "../ui/layout/Nav";
 
 class CreatePost extends Component {
@@ -61,7 +63,7 @@ class CreatePost extends Component {
                         createPost({
                           variables: { title, description, content },
                           refetchQueries: [
-                            { query: postsQuery },
+                            { query: getPostsQuery },
                             { query: findUserQuery, variables: { id: parseFloat(me.id) } },
                           ],
                         });

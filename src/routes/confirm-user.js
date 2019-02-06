@@ -1,6 +1,6 @@
 import React from "react";
 import { graphql } from "react-apollo";
-import { confirmUserMutation } from "../graphql/mutations";
+import { confirmUserMutation } from "../graphql/user/mutations/confirmUserMutaiton";
 
 class ConfirmUser extends React.PureComponent {
   componentDidMount() {

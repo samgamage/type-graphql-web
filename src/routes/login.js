@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { Mutation } from "react-apollo";
 import { Link } from "react-router-dom";
-import { loginMutation } from "../graphql/mutations";
+import { loginMutation } from "../graphql/user/mutations/loginMutation";
 import Nav from "../ui/layout/Nav";
 
 class Login extends Component {

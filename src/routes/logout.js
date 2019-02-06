@@ -1,6 +1,6 @@
 import React from "react";
 import { graphql } from "react-apollo";
-import { logoutMutation } from "../graphql/mutations";
+import { logoutMutation } from "../graphql/user/mutations/logoutMutation";
 import { client } from "../index";
 
 class Logout extends React.PureComponent {
