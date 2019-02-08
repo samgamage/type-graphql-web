@@ -1,3 +1,4 @@
+import { message } from "antd";
 import React from "react";
 import { graphql } from "react-apollo";
 import { confirmUserMutation } from "../graphql/user/mutations/confirmUserMutaiton";
@@ -15,6 +16,7 @@ class ConfirmUser extends React.PureComponent {
     const response = mutate({ variables: { token } });
 
     if (response) {
+      message.success("Confirmed user");
       history.push("/login");
     }
   }

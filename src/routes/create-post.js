@@ -1,9 +1,9 @@
+import { Input, message } from "antd";
 import React, { Component } from "react";
-import { Mutation, Query } from "react-apollo";
+import { Mutation } from "react-apollo";
 import { createPostMutation } from "../graphql/post/mutations/createPostMutation";
 import { getPostsQuery } from "../graphql/post/queries/getPostsQuery";
-import { findUserQuery } from "../graphql/user/queries/findUserQuery";
-import { meQuery } from "../graphql/user/queries/meQuery";
+import Container from "../ui/layout/Container";
 import Nav from "../ui/layout/Nav";
 
 class CreatePost extends Component {
@@ -24,9 +24,9 @@ class CreatePost extends Component {
       <Nav>
         <Mutation mutation={createPostMutation}>
           {(createPost) => (
-            <div>
+            <Container width="62%">
               <div>
-                <input
+                <Input
                   placeholder="title"
                   type="text"
                   name="title"
@@ -35,7 +35,7 @@ class CreatePost extends Component {
                 />
               </div>
               <div>
-                <input
+                <Input
                   placeholder="description"
                   type="text"
                   name="description"
@@ -44,7 +44,7 @@ class CreatePost extends Component {
                 />
               </div>
               <div>
-                <textarea
+                <Input.TextArea
                   placeholder="content"
                   type="text"
                   name="content"
@@ -52,30 +52,27 @@ class CreatePost extends Component {
                   onChange={this.onChange}
                 />
               </div>
-              <Query query={meQuery}>
-                {({ data: { me }, loading }) => {
-                  if (loading) return null;
-                  return (
-                    <button
-                      type="submit"
-                      onClick={(e) => {
-                        e.preventDefault();
-                        createPost({
-                          variables: { title, description, content },
-                          refetchQueries: [
-                            { query: getPostsQuery },
-                            { query: findUserQuery, variables: { id: parseFloat(me.id) } },
-                          ],
-                        });
-                        this.setState({ title: "", description: "", content: "" });
-                      }}
-                    >
-                      Create Post
-                    </button>
-                  );
+              <button
+                type="submit"
+                onClick={async (e) => {
+                  e.preventDefault();
+                  const response = await createPost({
+                    variables: { title, description, content },
+                    refetchQueries: [
+                      { query: getPostsQuery },
+                      { query: findUserQuery, variables: { id: me.id } },
+                    ],
+                  });
+                  this.setState({ title: "", description: "", content: "" });
+                  if (response.data.createPost.ok) {
+                    message.success("Created post");
+                    this.props.history.push("/");
+                  }
                 }}
-              </Query>
-            </div>
+              >
+                Create Post
+              </button>
+            </Container>
           )}
         </Mutation>
       </Nav>

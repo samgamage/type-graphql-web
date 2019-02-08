@@ -1,7 +1,7 @@
 import gql from "graphql-tag";
 
 export const getPostQuery = gql`
-  query GetPostQuery($id: Float!) {
+  query GetPostQuery($id: String!) {
     getPost(id: $id) {
       id
       title
@@ -10,11 +10,10 @@ export const getPostQuery = gql`
       author {
         id
         username
-        profilePictureUrl
+        profile {
+          profilePictureUrl
+        }
       }
-    }
-    me {
-      id
     }
   }
 `;

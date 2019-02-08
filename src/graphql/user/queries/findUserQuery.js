@@ -1,12 +1,14 @@
 import gql from "graphql-tag";
 
 export const findUserQuery = gql`
-  query FindUserQuery($id: Float!) {
+  query FindUserQuery($id: String!) {
     findUser(id: $id) {
       id
       username
       email
-      profilePictureUrl
+      profile {
+        profilePictureUrl
+      }
       posts {
         id
         title

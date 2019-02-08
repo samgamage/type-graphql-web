@@ -1,17 +1,19 @@
-import React, { Component } from "react";
+import { Button, Form, Input, message } from "antd";
+import React from "react";
 import { Mutation } from "react-apollo";
 import { Link } from "react-router-dom";
 import { registerMutation } from "../graphql/user/mutations/registerMutation";
+import Container from "../ui/layout/Container";
 import Nav from "../ui/layout/Nav";
 
-class Register extends Component {
+class Register extends React.Component {
   state = {
     email: "",
     username: "",
     password: "",
   };
 
-  onChange = (e) => {
+  handleChange = (e) => {
     const { name, value } = e.target;
     this.setState({ [name]: value });
   };
@@ -20,64 +22,54 @@ class Register extends Component {
     const { email, password, username } = this.state;
     return (
       <Nav>
-        <Mutation
-          mutation={registerMutation}
-          update={({
-            data: {
-              register: { ok, error },
-            },
-          }) => {
-            if (error) {
-              console.error(error);
-            }
-            if (ok) {
-              this.props.history.push("/");
-            }
-          }}
-        >
-          {(register) => (
-            <div>
-              <div>
-                <input
-                  placeholder="email"
-                  type="email"
-                  name="email"
-                  value={email}
-                  onChange={this.onChange}
-                />
-              </div>
-              <div>
-                <input
-                  placeholder="username"
-                  type="text"
-                  name="username"
-                  value={username}
-                  onChange={this.onChange}
-                />
-              </div>
-              <div>
-                <input
-                  placeholder="password"
-                  type="password"
-                  name="password"
-                  value={password}
-                  onChange={this.onChange}
-                />
-              </div>
-              <button
-                type="submit"
-                onClick={(e) => {
-                  e.preventDefault();
-                  register({ variables: { email, password, username } });
-                }}
-              >
-                submit
-              </button>
+        <Mutation mutation={registerMutation}>
+          {(register, { loading }) => (
+            <Container width="20%">
+              <Form>
+                <Form.Item>
+                  <Input
+                    placeholder="Email"
+                    value={email}
+                    name="email"
+                    onChange={this.handleChange}
+                  />
+                </Form.Item>
+                <Form.Item>
+                  <Input
+                    placeholder="Username"
+                    value={username}
+                    name="username"
+                    onChange={this.handleChange}
+                  />
+                </Form.Item>
+                <Form.Item>
+                  <Input
+                    type="password"
+                    placeholder="Password"
+                    value={password}
+                    name="password"
+                    onChange={this.handleChange}
+                  />
+                </Form.Item>
+                <Button
+                  type="primary"
+                  onClick={async (e) => {
+                    e.preventDefault();
+                    const response = await register({ variables: { email, password, username } });
+                    if (response.data.register.ok) {
+                      message.success("Confirmation email sent. Please check your email.");
+                    }
+                  }}
+                  loading={loading}
+                >
+                  Register
+                </Button>
+              </Form>
               <div>
                 {/* eslint-disable-next-line */}
-                <Link to="/login">Already have an account? Log in.</Link>
+                Already have an account? <Link to="/login">Log in.</Link>
               </div>
-            </div>
+            </Container>
           )}
         </Mutation>
       </Nav>

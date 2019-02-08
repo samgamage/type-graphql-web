@@ -1,7 +1,9 @@
+import { Button, Form, Input, message } from "antd";
 import React, { Component } from "react";
 import { Mutation } from "react-apollo";
 import { Link } from "react-router-dom";
 import { loginMutation } from "../graphql/user/mutations/loginMutation";
+import Container from "../ui/layout/Container";
 import Nav from "../ui/layout/Nav";
 
 class Login extends Component {
@@ -10,9 +12,14 @@ class Login extends Component {
     password: "",
   };
 
-  onChange = (e) => {
+  handleChange = (e) => {
     const { name, value } = e.target;
     this.setState({ [name]: value });
+  };
+
+  handleSubmit = (e) => {
+    e.preventDefault();
+    console.log("submitting...");
   };
 
   render() {
@@ -20,42 +27,48 @@ class Login extends Component {
     return (
       <Nav>
         <Mutation mutation={loginMutation}>
-          {(login) => (
-            <div>
-              <div>
-                <input
-                  placeholder="email"
-                  type="email"
-                  name="email"
-                  value={email}
-                  onChange={this.onChange}
-                />
-              </div>
-              <div>
-                <input
-                  placeholder="password"
-                  type="password"
-                  name="password"
-                  value={password}
-                  onChange={this.onChange}
-                />
-              </div>
-              <button
-                type="submit"
-                onClick={async (e) => {
-                  e.preventDefault();
-                  await login({ variables: { email, password } }).then(() => {
-                    this.props.history.push("/");
-                  });
-                }}
-              >
-                submit
-              </button>
+          {(login, { loading }) => (
+            <Container width="20%">
+              <Form onSubmit={this.handleSubmit}>
+                <Form.Item>
+                  <Input
+                    placeholder="Email"
+                    value={email}
+                    name="email"
+                    onChange={this.handleChange}
+                  />
+                </Form.Item>
+                <Form.Item>
+                  <Input
+                    type="password"
+                    placeholder="Password"
+                    value={password}
+                    name="password"
+                    onChange={this.handleChange}
+                  />
+                </Form.Item>
+                <Button
+                  type="primary"
+                  onClick={async (e) => {
+                    e.preventDefault();
+                    const response = await login({
+                      variables: { email, password },
+                    });
+                    if (response.data.login.ok) {
+                      this.props.history.push("/");
+                      message.success("Logged in");
+                    }
+                  }}
+                  loading={loading}
+                >
+                  Login
+                </Button>
+              </Form>
               <div>
                 {/* eslint-disable-next-line */}
-                <Link to="/register">Don't have an account? Sign up.</Link>
+                Don't have an account? <Link to="/register">Sign up.</Link>
               </div>
-            </div>
+            </Container>
           )}
         </Mutation>
       </Nav>

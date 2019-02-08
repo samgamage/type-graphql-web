@@ -1,3 +1,4 @@
+import { Icon } from "antd";
 import React from "react";
 import { Query } from "react-apollo";
 import { findUserQuery } from "../graphql/user/queries/findUserQuery";
@@ -10,13 +11,15 @@ const ProfileView = ({
   },
 }) => (
   <Nav>
-    <Query query={findUserQuery} variables={{ id: parseFloat(id) }}>
+    <Query query={findUserQuery} variables={{ id }}>
       {({ data: { findUser, me }, loading }) => {
         if (loading) {
           return (
-            <Container>
-              <div>loading...</div>
-            </Container>
+            <Nav>
+              <Container width="62%">
+                <Icon type="loading" style={{ fontSize: 24 }} spin />
+              </Container>
+            </Nav>
           );
         }
 
@@ -26,7 +29,7 @@ const ProfileView = ({
             <div>profile stuff</div>
             <ul>
               {findUser.posts.map((post) => (
-                <li>{post.id}</li>
+                <li key={post.id}>{post.title}</li>
               ))}
             </ul>
           </Container>

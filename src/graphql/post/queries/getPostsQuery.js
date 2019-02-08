@@ -6,11 +6,12 @@ export const getPostsQuery = gql`
       id
       title
       description
-      content
       author {
         id
         username
-        profilePictureUrl
+        profile {
+          profilePictureUrl
+        }
       }
     }
     me {

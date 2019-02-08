@@ -5,16 +5,6 @@ export const createPostMutation = gql`
     createPost(data: { title: $title, description: $description, content: $content }) {
       ok
       error
-      post {
-        id
-        title
-        description
-        content
-        author {
-          id
-          username
-        }
-      }
     }
   }
 `;

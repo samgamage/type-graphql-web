@@ -10,7 +10,7 @@ const AccountView = ({
   },
 }) => (
   <Nav>
-    <Query query={meQuery} variables={{ id: parseFloat(id) }}>
+    <Query query={meQuery} variables={{ id }}>
       {({ data: { me }, loading }) => {
         if (loading) {
           return <div>loading..</div>;

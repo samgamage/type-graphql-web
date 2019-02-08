@@ -4,7 +4,9 @@ export const meQuery = gql`
   {
     me {
       id
-      profilePictureUrl
+      profile {
+        profilePictureUrl
+      }
     }
   }
 `;
