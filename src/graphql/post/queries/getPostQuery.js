@@ -6,6 +6,7 @@ export const getPostQuery = gql`
       id
       title
       description
+      createdAt
       content
       author {
         id

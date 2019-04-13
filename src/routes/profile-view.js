@@ -1,4 +1,4 @@
-import { Icon } from "antd";
+import { Button, Icon } from "antd";
 import React from "react";
 import { Query } from "react-apollo";
 import { findUserQuery } from "../graphql/user/queries/findUserQuery";
@@ -25,8 +25,9 @@ const ProfileView = ({
 
         return (
           <Container width="40%">
-            {me.id === findUser.id && <div>conditionally show button</div>}
+            {me.id === findUser.id && <Button type="primary">Edit Profile</Button>}
             <div>profile stuff</div>
+            <div>Posts</div>
             <ul>
               {findUser.posts.map((post) => (
                 <li key={post.id}>{post.title}</li>

@@ -1,11 +1,23 @@
-import { Avatar, Card, Col, Icon, Row } from "antd";
-import { Meta } from "antd/lib/list/Item";
+import { Icon } from "antd";
+import dayjs from "dayjs";
 import React from "react";
 import { Query } from "react-apollo";
 import { Link } from "react-router-dom";
+import styled from "styled-components";
 import { getPostsQuery } from "../graphql/post/queries/getPostsQuery";
+import * as Card from "../ui/Card";
 import Container from "../ui/layout/Container";
 import Nav from "../ui/layout/Nav";
+import * as Page from "../ui/Page";
+
+const formatDate = (date) => dayjs(date).format("D MMM YYYY");
+
+const PostGrid = styled.div`
+  display: grid;
+  grid-template-columns: 24% 24% 24% 24%;
+  grid-column-gap: 1rem;
+  grid-row-gap: 1rem;
+`;
 
 const Home = ({ history }) => (
   <Query query={getPostsQuery}>
@@ -27,25 +39,23 @@ const Home = ({ history }) => (
 
       return (
         <Nav>
-          <Container width="62%">
-            {console.log(data.me)}
-            <h1>Popular Posts</h1>
-            <Row gutter={16}>
+          <Page.Wrapper>
+            <Page.Title>Popular Posts</Page.Title>
+            <PostGrid>
               {data.posts.map((post) => (
-                <Col key={post.id} span={6} style={{ marginTop: "1rem" }}>
-                  <Link to={`/posts/${post.id}`}>
-                    <Card>
-                      <Meta
-                        avatar={<Avatar size="large" src={post.author.profile.profilePictureUrl} />}
-                        title={post.title}
-                        description={post.description}
-                      />
-                    </Card>
-                  </Link>
-                </Col>
+                <Link to={`/posts/${post.id}`} key={post.id}>
+                  <Card.Wrapper>
+                    <Card.Title>{post.title}</Card.Title>
+                    <Card.Description>{post.description}</Card.Description>
+                    <Card.Footer>
+                      <Card.Date>UX</Card.Date>
+                      <Card.Date>{formatDate(post.createdAt)}</Card.Date>
+                    </Card.Footer>
+                  </Card.Wrapper>
+                </Link>
               ))}
-            </Row>
-          </Container>
+            </PostGrid>
+          </Page.Wrapper>
         </Nav>
       );
     }}

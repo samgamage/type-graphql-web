@@ -7,6 +7,9 @@ export const findUserQuery = gql`
       username
       email
       profile {
+        name
+        gender
+        location
         profilePictureUrl
       }
       posts {

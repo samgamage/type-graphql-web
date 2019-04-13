@@ -6,6 +6,7 @@ export const getPostsQuery = gql`
       id
       title
       description
+      createdAt
       author {
         id
         username
